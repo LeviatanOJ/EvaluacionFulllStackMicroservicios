@@ -1,0 +1,52 @@
+# ===== .NET =====
+**/bin/
+**/obj/
+**/.vs/
+*.user
+*.suo
+*.cache
+*.ide/
+*.ncrunch*
+*.local.json
+
+# NuGet
+*.nupkg
+**/packages/
+.nuget/
+project.lock.json
+artifacts/
+
+# Logs / Coverage
+*.log
+TestResult*/
+Coverage*/
+*.coverage
+*.coveragexml
+
+# Rider / VSCode
+.idea/
+.vscode/
+*.sln.iml
+
+# ===== Node / Angular =====
+# Dependencias
+**/node_modules/
+# Builds
+**/dist/
+**/build/
+# Cache
+**/.angular/cache/
+**/.cache/
+**/.parcel-cache/
+# Env (si existiera)
+*.env
+.env.*
+
+# ===== Sistema / Otros =====
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+
+.docker/
+docker-compose.override.yml
