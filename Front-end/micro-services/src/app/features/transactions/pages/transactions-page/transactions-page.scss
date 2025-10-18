@@ -1,0 +1,12 @@
+.page {
+  display: grid;
+  gap: 16px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mt {
+  margin-top: 8px;
+}

@@ -1,0 +1,15 @@
+<mat-toolbar color="primary" class="app-toolbar">
+  <button mat-icon-button routerLink="/productos" aria-label="Inicio">
+    <mat-icon>inventory_2</mat-icon>
+  </button>
+  <span class="brand">{{ title() }}</span>
+
+  <span class="spacer"></span>
+
+  <a mat-button routerLink="/productos" routerLinkActive="active">Productos</a>
+  <a mat-button routerLink="/transacciones" routerLinkActive="active">Transacciones</a>
+</mat-toolbar>
+
+<main class="app-content">
+  <router-outlet></router-outlet>
+</main>

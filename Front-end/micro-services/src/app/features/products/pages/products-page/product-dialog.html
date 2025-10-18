@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Editar producto' : 'Nuevo producto' }}</h2>
+<div mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name" />
+    <app-form-field-error [control]="form.controls['name']"></app-form-field-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Categoría</mat-label>
+    <input matInput formControlName="category" />
+    <app-form-field-error [control]="form.controls['category']"></app-form-field-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput formControlName="description" rows="3"></textarea>
+    <app-form-field-error [control]="form.controls['description']"></app-form-field-error>
+  </mat-form-field>
+
+  <div class="grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Precio</mat-label>
+      <input matInput type="number" formControlName="price" />
+      <app-form-field-error [control]="form.controls['price']"></app-form-field-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Stock</mat-label>
+      <input matInput type="number" formControlName="stock" />
+      <app-form-field-error [control]="form.controls['stock']"></app-form-field-error>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Imagen (URL)</mat-label>
+    <input matInput formControlName="imageUrl" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+</div>
+
+<style>
+  .w-100 {
+    width: 100%;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+</style>

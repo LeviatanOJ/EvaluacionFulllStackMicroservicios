@@ -1,0 +1,60 @@
+<h2 mat-dialog-title>Nueva transacción</h2>
+<div mat-dialog-content [formGroup]="form">
+  <div class="grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo</mat-label>
+      <mat-select formControlName="type">
+        <mat-option [value]="1">Compra</mat-option>
+        <mat-option [value]="2">Venta</mat-option>
+      </mat-select>
+      <app-form-field-error [control]="form.controls['type']"></app-form-field-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Producto ID</mat-label>
+      <input matInput type="number" formControlName="productId" />
+      <app-form-field-error [control]="form.controls['productId']"></app-form-field-error>
+    </mat-form-field>
+  </div>
+
+  <div class="grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Cantidad</mat-label>
+      <input matInput type="number" formControlName="quantity" />
+      <app-form-field-error [control]="form.controls['quantity']"></app-form-field-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Precio unitario</mat-label>
+      <input matInput type="number" formControlName="unitPrice" />
+      <app-form-field-error [control]="form.controls['unitPrice']"></app-form-field-error>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Detalle</mat-label>
+    <textarea matInput rows="3" formControlName="detail"></textarea>
+  </mat-form-field>
+
+  <p class="total">
+    Total: <strong>{{ total | number: '1.2-2' }}</strong>
+  </p>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+</div>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .w-100 {
+    width: 100%;
+  }
+  .total {
+    margin-top: 8px;
+  }
+</style>

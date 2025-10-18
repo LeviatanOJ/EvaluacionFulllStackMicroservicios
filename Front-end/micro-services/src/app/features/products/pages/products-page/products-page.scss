@@ -1,0 +1,36 @@
+.page {
+  display: grid;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mt {
+  margin-top: 8px;
+}
+
+.drawer {
+  height: 0;
+}
+
+.panel {
+  width: 760px;
+  max-width: 95vw;
+  padding: 16px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.panel-body {
+  display: grid;
+  gap: 12px;
+}

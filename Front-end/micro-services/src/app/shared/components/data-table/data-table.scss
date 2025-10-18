@@ -1,0 +1,58 @@
+.table-wrapper {
+  position: relative;
+  overflow: auto;
+}
+
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+  display: grid;
+  place-items: center;
+  z-index: 2;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  th,
+  td {
+    white-space: nowrap;
+  }
+
+  .thumb {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    background: #eef2ff;
+  }
+
+  .actions-header,
+  .actions-cell {
+    text-align: right;
+  }
+}
+
+.empty-row td .empty {
+  padding: 24px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.thumb {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}

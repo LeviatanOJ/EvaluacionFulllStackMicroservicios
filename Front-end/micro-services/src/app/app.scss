@@ -1,0 +1,34 @@
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  .brand {
+    font-weight: 600;
+    margin-left: 6px;
+  }
+  .spacer {
+    flex: 1 1 auto;
+  }
+  a.active {
+    font-weight: 700;
+    text-decoration: underline;
+  }
+}
+
+.app-content {
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.app-snackbar.success {
+  background: #4caf50;
+  color: #fff;
+}
+.app-snackbar.error {
+  background: #f44336;
+  color: #fff;
+}
+.app-snackbar.info {
+  background: #2196f3;
+  color: #fff;
+}

@@ -1,0 +1,121 @@
+<div class="table-wrapper" [class.loading]="loading">
+  <div class="loading-overlay" *ngIf="loading">
+    <mat-spinner diameter="42"></mat-spinner>
+  </div>
+
+  <table mat-table [dataSource]="data" matSort class="mat-elevation-z1">
+    <!-- Columnas dinámicas -->
+    <ng-container *ngFor="let col of columns" [matColumnDef]="col.key">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        [mat-sort-header]="col.key"
+        [disabled]="!col.sortable"
+        [ngStyle]="columnStyle(col)"
+      >
+        {{ col.header }}
+      </th>
+
+      <td mat-cell *matCellDef="let row" [ngStyle]="columnStyle(col)">
+        <ng-container [ngSwitch]="col.cellTpl || 'text'">
+          <span *ngSwitchCase="'text'">
+            {{ row[col.key] }}
+          </span>
+
+          <span *ngSwitchCase="'price'">
+            {{ asPrice(row[col.key]) }}
+          </span>
+
+          <span *ngSwitchCase="'badge'" class="badge">
+            {{ row[col.key] }}
+          </span>
+
+          <span *ngSwitchCase="'image'">
+            <img
+              [src]="normalizeUrl(row[col.key])"
+              alt="img"
+              class="thumb"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+              (error)="onImgError($event)"
+            />
+          </span>
+
+          <span *ngSwitchDefault>
+            {{ row[col.key] }}
+          </span>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <!-- Columna de acciones -->
+    <ng-container *ngIf="displayedColumns.includes('actions')" matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="actions-header">Acciones</th>
+      <td mat-cell *matCellDef="let row" class="actions-cell">
+        <button
+          *ngIf="actionButtons.includes('view')"
+          mat-icon-button
+          matTooltip="Ver"
+          (click)="emitAction('view', row)"
+        >
+          <mat-icon>visibility</mat-icon>
+        </button>
+
+        <button
+          *ngIf="actionButtons.includes('edit')"
+          mat-icon-button
+          matTooltip="Editar"
+          (click)="emitAction('edit', row)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button
+          *ngIf="actionButtons.includes('delete')"
+          mat-icon-button
+          color="warn"
+          matTooltip="Eliminar"
+          (click)="emitAction('delete', row)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+
+        <button
+          *ngIf="actionButtons.includes('stockPlus')"
+          mat-icon-button
+          matTooltip="Añadir stock"
+          (click)="emitAction('stockPlus', row)"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+
+        <button
+          *ngIf="actionButtons.includes('stockMinus')"
+          mat-icon-button
+          matTooltip="Reservar/Quitar stock"
+          (click)="emitAction('stockMinus', row)"
+        >
+          <mat-icon>remove</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <tr class="empty-row" *ngIf="!loading && (data?.length ?? 0) === 0">
+      <td [attr.colspan]="displayedColumns.length">
+        <div class="empty">Sin resultados</div>
+      </td>
+    </tr>
+  </table>
+
+  <mat-paginator
+    [length]="total"
+    [pageIndex]="pageIndex - 1"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 20, 50]"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+</div>

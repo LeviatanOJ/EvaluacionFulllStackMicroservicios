@@ -1,0 +1,31 @@
+<div class="page">
+  <header class="header">
+    <h2>Transacciones</h2>
+    <button mat-raised-button color="primary" (click)="newTransaction()">
+      <mat-icon>add</mat-icon>
+      Nueva transacción
+    </button>
+  </header>
+
+  <app-filter-bar
+    [fields]="filterFields"
+    [model]="filters()"
+    (apply)="onApplyFilters($event)"
+    (reset)="onResetFilters()"
+  >
+  </app-filter-bar>
+
+  <app-data-table
+    class="mt"
+    [columns]="columns"
+    [data]="rows()"
+    [total]="total()"
+    [pageIndex]="page()"
+    [pageSize]="size()"
+    [loading]="loading()"
+    [actionButtons]="[]"
+    (pageChange)="onPage($event)"
+    (sortChange)="onSort($event)"
+  >
+  </app-data-table>
+</div>

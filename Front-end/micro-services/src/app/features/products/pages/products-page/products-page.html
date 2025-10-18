@@ -1,0 +1,64 @@
+<div class="page">
+  <header class="header">
+    <h2>Productos</h2>
+    <button mat-raised-button color="primary" (click)="newProduct()">
+      <mat-icon>add</mat-icon>
+      Nuevo producto
+    </button>
+  </header>
+
+  <app-filter-bar
+    [fields]="filterFields"
+    [model]="filters()"
+    (apply)="onApplyFilters($event)"
+    (reset)="onResetFilters()"
+  >
+  </app-filter-bar>
+
+  <app-data-table
+    class="mt"
+    [columns]="columns"
+    [data]="rows()"
+    [total]="total()"
+    [pageIndex]="page()"
+    [pageSize]="size()"
+    [loading]="loading()"
+    [actionButtons]="actionButtons"
+    (pageChange)="onPage($event)"
+    (sortChange)="onSort($event)"
+    (rowAction)="onRowAction($event)"
+  >
+  </app-data-table>
+
+  <!-- Drawer de historial -->
+  <mat-sidenav-container class="drawer">
+    <mat-sidenav #historyDrawer position="end" mode="over" class="panel">
+      <div class="panel-header">
+        <h3>Historial: {{ selectedProduct()?.name }}</h3>
+        <button mat-icon-button (click)="closeHistory()"><mat-icon>close</mat-icon></button>
+      </div>
+
+      <div class="panel-body" *ngIf="selectedProduct() as p">
+        <app-data-table
+          [columns]="[
+            { key: 'id', header: 'ID', width: '80px' },
+            { key: 'dateUtc', header: 'Fecha' },
+            { key: 'type', header: 'Tipo', width: '100px' },
+            { key: 'quantity', header: 'Cantidad', width: '100px' },
+            { key: 'unitPrice', header: 'Precio U.', cellTpl: 'price', width: '120px' },
+            { key: 'totalPrice', header: 'Total', cellTpl: 'price', width: '120px' },
+          ]"
+          [data]="historyItems()"
+          [total]="historyTotal()"
+          [pageIndex]="historyQuery().page || 1"
+          [pageSize]="historyQuery().size || 10"
+          [loading]="historyLoading()"
+          [actionButtons]="[]"
+          (pageChange)="historyPage($event)"
+        >
+        </app-data-table>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content></mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

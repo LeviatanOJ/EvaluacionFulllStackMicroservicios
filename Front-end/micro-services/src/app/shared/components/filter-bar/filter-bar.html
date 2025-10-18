@@ -1,0 +1,78 @@
+<form class="filter-bar" [class.compact]="compact" [formGroup]="form" (ngSubmit)="onApply()">
+  <div class="fields">
+    <ng-container *ngFor="let f of fields">
+      <!-- TEXT -->
+      <mat-form-field *ngIf="f.type === 'text' && f.key" appearance="outline">
+        <mat-label>{{ f.label }}</mat-label>
+        <input matInput [placeholder]="f.placeholder ?? ''" [formControlName]="f.key!" />
+      </mat-form-field>
+
+      <!-- NUMBER -->
+      <mat-form-field *ngIf="f.type === 'number' && f.key" appearance="outline">
+        <mat-label>{{ f.label }}</mat-label>
+        <input
+          matInput
+          type="number"
+          [placeholder]="f.placeholder ?? ''"
+          [min]="f.min ?? null"
+          [max]="f.max ?? null"
+          [formControlName]="f.key!"
+        />
+      </mat-form-field>
+
+      <!-- DATE -->
+      <mat-form-field *ngIf="f.type === 'date' && f.key" appearance="outline">
+        <mat-label>{{ f.label }}</mat-label>
+        <input matInput [matDatepicker]="picker" [formControlName]="f.key!" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <!-- SELECT -->
+      <mat-form-field *ngIf="f.type === 'select' && f.key" appearance="outline">
+        <mat-label>{{ f.label }}</mat-label>
+        <mat-select [formControlName]="f.key!">
+          <mat-option [value]="null">Todos</mat-option>
+          <mat-option *ngFor="let opt of f.options || []" [value]="opt.value">{{
+            opt.label
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- NUMBER RANGE -->
+      <div class="range two" *ngIf="f.type === 'number-range' && f.rangeKeys as rk">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ f.label }} (mín)</mat-label>
+          <input matInput type="number" [formControlName]="rk.min" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ f.label }} (máx)</mat-label>
+          <input matInput type="number" [formControlName]="rk.max" />
+        </mat-form-field>
+      </div>
+
+      <!-- DATE RANGE -->
+      <div class="range two" *ngIf="f.type === 'date-range' && f.rangeKeys as rk">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ f.label }} desde</mat-label>
+          <input matInput [matDatepicker]="fromPicker" [formControlName]="rk.min" />
+          <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ f.label }} hasta</mat-label>
+          <input matInput [matDatepicker]="toPicker" [formControlName]="rk.max" />
+          <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+          <mat-datepicker #toPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="actions">
+    <button mat-stroked-button color="primary" type="submit" [disabled]="!changed">Aplicar</button>
+    <button mat-button type="button" (click)="onReset()" [disabled]="!changed">Limpiar</button>
+  </div>
+</form>
